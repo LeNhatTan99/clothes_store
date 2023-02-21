@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Role;
+use App\Http\Requests\Admin\UserStoreRequest;
 
 class UserController extends Controller
 {
@@ -30,7 +31,7 @@ class UserController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
         $password = Hash::make($request->password);
         $data = [
@@ -73,7 +74,7 @@ class UserController extends Controller
     }
 
 
-    public function update(Request $request, User $user)
+    public function update(UserStoreRequest $request, User $user)
     {
         $password = Hash::make($request->password);
         $data = [

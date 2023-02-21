@@ -27,6 +27,26 @@
                                 </span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label class="form-label">Số điện thoại</label>
+                            <input  type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="email">
+
+                            @error('phone_number')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Địa chỉ</label>
+                            <input  type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="email">
+
+                            @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="password" class="form-label">Mật khẩu</label>

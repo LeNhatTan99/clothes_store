@@ -7,7 +7,7 @@
     </div>
     <hr>
     <div class="create px-3">
-        <form action="{{route('users.store')}}" method="post">
+        <form id="form" action="{{route('users.store')}}" method="post">
             @csrf
             <div class="row">
                 <div class="col-sm-6 py-2 px-3">
@@ -41,33 +41,32 @@
                 <div class="col-sm-6 py-2 px-3">
                     <label for="password">Mật khẩu</label>
                     <input class="form-control" type="password" name="password"  id="password"  value="{{old('password')}}">
-                    @if ($errors->has('password'))
+                    @if ($errors->first('password'))
                     <span class="text-danger">{{$errors->first('password')}}</span>
                     @endif
                 </div>
             </div>
-
             <div class="my-3">
-                <p>Cấp quyền</p>
+                <p>Chọn vai trò</p>
             </div>
             @if ($roles->count())
                 <div class="form-group">
-                    @foreach ($roles as $role)
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" value="{{ $role->id }}"
-                                name="roleId" >
-                            <label class="form-check-label">
-                                {{ $role->name }}
-                            </label>
-                        </div>
-                    @endforeach
+                    <select class="form-control" id="roleId" name="roleId" >
+                        <option value="">----</option>
+                        @foreach($roles as $role)
+                            <option
+                                value={{ $role->id }} {{ old('roleId') == $role->id ? 'selected':'' }}>{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('roleId'))
+                    <span class="text-danger">{{$errors->first('roleId')}}</span>
+                     @endif
                 </div>
             @endif
-
             <button type="submit" class="btn-create">Tạo mới</button>
         </form>
 
     </div>
-
 </div>
+@include('backend.users.script')
 @endsection

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use App\Http\Requests\Admin\ProductStoreRequest;
 
 class ProductController extends Controller
 {
@@ -31,23 +32,24 @@ class ProductController extends Controller
     }
 
     protected function storeImage(Request $request) {
-        $path = $request->file('thumbnail')->storeAs('public/product_images',Str::slug($request->name).'.'.'jpg');
-        return substr($path, strlen('public/'));
+            $path = $request->file('thumbnail')->storeAs('public/product_images',Str::slug($request->name).'.'.'jpg');
+            return substr($path, strlen('public/'));
       }
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-
-        $imgUrl = $this->storeImage($request);
         $data = [
             'name'=>$request->name,
             'slug'=>Str::slug($request->name),
             'price'=>$request->price,
             'discount'=>$request->discount,
             'status'=>$request->status,
-            'thumbnail'=>$imgUrl,
             'description'=>$request->description,
             'inventory'=>$request->inventory,
         ];
+        if($request->hasFile('thumbnail')) {
+            $imgUrl = $this->storeImage($request);
+            $data['thumbnail'] = $imgUrl;
+        }
         DB::beginTransaction();
         try {
             $product = Product::create($data);
@@ -83,19 +85,21 @@ class ProductController extends Controller
         return view('backend.products.edit',$viewData);
     }
 
-    public function update(Request $request, Product $product)
-    {
-        $imgUrl = $this->storeImage($request);
+    public function update(ProductStoreRequest $request, Product $product)
+    {    
         $data = [
             'name'=>$request->name,
             'slug'=>Str::slug($request->name),
             'price'=>$request->price,
             'discount'=>$request->discount,
             'status'=>$request->status,
-            'thumbnail'=>$imgUrl,
             'description'=>$request->description,
             'inventory'=>$request->inventory,
         ];
+        if($request->hasFile('thumbnail')) {
+            $imgUrl = $this->storeImage($request);
+            $data['thumbnail'] = $imgUrl;
+        }
         DB::beginTransaction();
         try {
             $product ->update($data);

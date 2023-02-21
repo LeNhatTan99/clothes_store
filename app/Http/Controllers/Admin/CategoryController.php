@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use App\Http\Requests\Admin\CategoryStoreRequest;
 
 class CategoryController extends Controller
 {
@@ -28,7 +29,7 @@ class CategoryController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
         $data = [
             'name'=>$request->name,
@@ -60,7 +61,7 @@ class CategoryController extends Controller
     }
 
 
-    public function update(Request $request, Category $category)
+    public function update(CategoryStoreRequest $request, Category $category)
     {
         $data = [
             'name'=>$request->name,

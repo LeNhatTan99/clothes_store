@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use App\Http\Requests\Admin\PermissionStoreRequest;
 
 class PermissionController extends Controller
 {
@@ -30,7 +31,7 @@ class PermissionController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(PermissionStoreRequest $request)
     {
         $data = [
             'name'=>$request->name,
@@ -56,7 +57,7 @@ class PermissionController extends Controller
     }
 
 
-    public function update(Request $request, Permission $permission)
+    public function update(PermissionStoreRequest $request, Permission $permission)
     {
         $data = [
             'name'=>$request->name,

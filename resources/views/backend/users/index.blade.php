@@ -1,6 +1,6 @@
 @extends('backend.app')
 @section('content')
-    <div class="m-3">
+<div class="m-3">
         <div class="heading-section text-center">
             Quản lý người dùng
         </div>
@@ -16,7 +16,6 @@
                         <td>Email</td>
                         <td>Số điện thoại</td>
                         <td>Địa chỉ</td>
-                        <td>Mật Khẩu</td>
                         <td>Thao tác</td>
                     </thead>
                     <tbody>
@@ -32,9 +31,7 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->phone_number }}</td>
                                 <td>{{ $user->address }}</td>
-                                <td>{{ $user->password }}</td>
                                 <td class="actions">
-                                    <a href="" class="show-action p-2"><i class="fa-solid fa-eye fa-xs"></i></a>
                                     <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="edit-action p-2"><i
                                             class="fas fa-pen fa-xs"></i></a>
 

@@ -9,11 +9,14 @@
             <form action="{{ route('roles.store') }}" method="post">
                 @csrf
                 <div class=" py-2 px-3">
-                    <label for="name">Tên vai trò</label>
+                    <div class="py-2">
+                        <label for="name">Tên vai trò</label>
                     <input class="form-control" type="text" name="name" id="name" value="{{ old('name') }}">
                     @if ($errors->has('name'))
                         <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif
+                    </div>
+                  <div class="py-2">
                     <label for="description">Mô tả</label>
                     <textarea type="text" class=" form-control create-textarea" name="description" cols="30" rows="20">
                         {{ old('description') }}
@@ -21,7 +24,7 @@
                     @if ($errors->has('description'))
                         <span class="text-danger">{{ $errors->first('description') }}</span>
                     @endif
-
+                  </div>
                     <div class="my-3">
                         <p>Cấp quyền</p>
                     </div>
@@ -40,10 +43,7 @@
                     @endif
                     <button type="submit" class="btn-create">Tạo mới</button>
                 </div>
-
             </form>
-
         </div>
-
     </div>
 @endsection

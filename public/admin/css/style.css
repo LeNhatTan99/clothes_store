@@ -26,8 +26,11 @@ i {
 
 
   .sidebar .active {
-    border-radius: 5px;
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    border: none;
+    color: #495057;
+    text-decoration: none;
+    background-color: #f8f9fa;
+    font-weight: 500;
   }
 
   .sidebar-sticky {
@@ -139,4 +142,9 @@ i {
 /* create page*/
 .create-textarea {
     height: 240px;
+}
+
+/* Message error */
+.error {
+    color: #e70a0a;
 }

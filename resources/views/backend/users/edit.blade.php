@@ -1,4 +1,3 @@
-
 @extends('backend.app')
 @section('content')
 <div class="m-3">
@@ -49,19 +48,20 @@
             </div>
 
             <div class="my-3">
-                <p>Cấp quyền</p>
+                <p>Chọn vai trò</p>
             </div>
             @if ($roles->count())
                 <div class="form-group">
-                    @foreach ($roles as $role)
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" value="{{ $role->id }}"
-                                name="roleId"  {{ in_array($role->id, $user->roles->pluck('id')->toArray()) ? 'checked' : '' }}>
-                            <label class="form-check-label">
-                                {{ $role->name }}
-                            </label>
-                        </div>
-                    @endforeach
+                    <select class="form-control" id="roleId" name="roleId" >
+                        <option value="">----</option>
+                        @foreach($roles as $role)
+                            <option
+                                value={{ $role->id }} {{ old('roleId', $role->id) == $role->id ? 'selected':'' }}>{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('roleId'))
+                    <span class="text-danger">{{$errors->first('roleId')}}</span>
+                     @endif
                 </div>
             @endif
             <button type="submit" class="btn-create">Cập nhật</button>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use App\Http\Requests\Admin\NewsStoreRequest;
 
 class NewsController extends Controller
 {
@@ -33,16 +34,18 @@ class NewsController extends Controller
         return substr($path, strlen('public/'));
       }
 
-    public function store(Request $request)
+    public function store(NewsStoreRequest $request)
     {
-        $imgUrl = $this->storeImage($request);
         $data = [
             'user_id'=>auth()->user()->id,
             'title'=>$request->title,
             'slug'=>Str::slug($request->title),
             'content'=>$request->content,
-            'thumbnail'=>$imgUrl,
         ];
+        if($request->hasFile('thumbnail')) {
+            $imgUrl = $this->storeImage($request);
+            $data['thumbnail'] = $imgUrl;
+        }
         DB::beginTransaction();
         try {
             $news = News::create($data);
@@ -68,16 +71,18 @@ class NewsController extends Controller
     }
 
 
-    public function update(Request $request, News $news)
+    public function update(NewsStoreRequest $request, News $news)
     {
-        $imgUrl = $this->storeImage($request);
         $data = [
             'user_id'=>auth()->user()->id,
             'title'=>$request->title,
             'slug'=>Str::slug($request->title),
             'content'=>$request->content,
-            'thumbnail'=>$imgUrl,
         ];
+        if($request->hasFile('thumbnail')) {
+            $imgUrl = $this->storeImage($request);
+            $data['thumbnail'] = $imgUrl;
+        }
         DB::beginTransaction();
         try{
             $news->update($data);

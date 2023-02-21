@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\Admin\RoleStoreRequest;
 
 class RoleController extends Controller
 {
@@ -33,7 +34,7 @@ class RoleController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(RoleStoreRequest $request)
     {
         $data = [
             'name'=>$request->name,
@@ -65,7 +66,7 @@ class RoleController extends Controller
     }
 
 
-    public function update(Request $request, Role $role)
+    public function update(RoleStoreRequest $request, Role $role)
     {
         $data = [
             'name'=>$request->name,

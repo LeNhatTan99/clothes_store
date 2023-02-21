@@ -1,26 +1,24 @@
-<!--Main Navigation-->
-<header>
-    <!-- Sidebar -->
+  <!-- Sidebar -->
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
         <div class="position-sticky">
             <div class="list-group list-group-flush mx-3 mt-4">
                 <a href="{{route('admin')}}" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Trang admin</span>
                 </a>
-                <a href="{{ route('users.index') }}" class="list-group-item list-group-item-action py-2 ripple"><i
+                <a href="{{ route('users.index') }}" class="{{ Request::routeIs('users.*') ? 'active' : '' }} list-group-item list-group-item-action py-2 ripple"><i
                         class="fas fa-users fa-fw me-3"></i><span>Quản lý người dùng</span></a>
-                <a href="{{ route('roles.index') }}" class="list-group-item list-group-item-action py-2 ripple">
+                <a href="{{ route('roles.index') }}" class="{{ Request::routeIs('roles.*') ? 'active' : '' }} list-group-item list-group-item-action py-2 ripple">
                     <i class="fa-solid fa-user-secret"></i><span>Quản lý vai trò</span></a>
-                <a href="{{ route('permissions.index') }}" class="list-group-item list-group-item-action py-2 ripple">
+                <a href="{{ route('permissions.index') }}" class="{{ Request::routeIs('permissions.*') ? 'active' : '' }} list-group-item list-group-item-action py-2 ripple">
                     <i class="fa-solid fa-user-gear"></i><span>Quản lý quyền</span></a>
-                <a href="{{ route('products.index') }}" class="list-group-item list-group-item-action py-2 ripple">
+                <a href="{{ route('products.index') }}" class="{{ Request::routeIs('products.*') ? 'active' : '' }} list-group-item list-group-item-action py-2 ripple">
                     <i class="fa-brands fa-product-hunt"></i> <span>Quản lý sản phẩm</span></a>
-                <a href="{{ route('categories.index') }}" class="list-group-item list-group-item-action py-2 ripple">
+                <a href="{{ route('categories.index') }}" class="{{ Request::routeIs('categories.*') ? 'active' : '' }} list-group-item list-group-item-action py-2 ripple">
                     <i class="fa-solid fa-list"></i></i><span>Quản lý danh mục sản phẩm</span></a>
-                <a href="{{ route('orders.index') }}" class="list-group-item list-group-item-action py-2 ripple">
+                <a href="{{ route('orders.index') }}" class="{{ Request::routeIs('orders.*') ? 'active' : '' }} list-group-item list-group-item-action py-2 ripple">
                     <i class="fas fa-chart-bar fa-fw me-3"></i><span>Quản lý đơn hàng</span></a>
 
-                <a href="{{ route('news.index') }}" class="list-group-item list-group-item-action py-2 ripple">
+                <a href="{{ route('news.index') }}" class="{{ Request::routeIs('news.*') ? 'active' : '' }} list-group-item list-group-item-action py-2 ripple">
                     <i class="fa-solid fa-newspaper"></i><span>Quản lý tin tức</span></a>
 
             </div>
@@ -87,7 +85,3 @@
         <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->
-</header>
-<!--Main Navigation-->
-
-<!--Main layout-->

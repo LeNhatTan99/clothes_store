@@ -17,13 +17,17 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, $role)
     {
-
-        foreach(auth()->user()->roles as $role_name) {
-            $role_name = $role_name->name;
+        if(auth()->check() && isset(auth()->user()->roles)) {
+            $role_name = null;
+            foreach(auth()->user()->roles as $val) {
+                $role_name = $val->name;
+            }
+            if($role_name != $role) {
+                return redirect()->route('index');
+            }
+            return $next($request);
+        } else {
+            return redirect()->route('index');
         }
-        if(!auth()->check() || $role_name == $role){
-             return redirect()->route('index');
-        }
-        return $next($request);
     }
 }

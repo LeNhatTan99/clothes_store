@@ -24,7 +24,6 @@
                                 <td>{{ $category->slug }}</td>
                                 <td>{{ $category->description }}</td>
                                 <td class="actions">
-                                    <a href="" class="show-action p-2"><i class="fa-solid fa-eye fa-xs"></i></a>
                                     <a href="{{ route('categories.edit', ['category' => $category->id]) }}" class="edit-action p-2"><i
                                             class="fas fa-pen fa-xs"></i></a>
 
@@ -51,9 +50,7 @@
                                                 </div>
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-
-                                                        <button type="submit" class="btn btn-danger p-2">Xoá</button>
-
+                                                    <button type="submit" class="btn btn-danger p-2">Xoá</button>
                                                 </div>
                                             </div>
                                         </div>

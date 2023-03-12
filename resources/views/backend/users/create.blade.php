@@ -13,28 +13,28 @@
                 <div class="col-sm-6 py-2 px-3">
                     <label for="name">Tên</label>
                     <input class="form-control" type="text" name="name" id="name" value="{{old('name')}}">
-                    @if ($errors->has('name'))
+                    @if ($errors->first('name'))
                     <span class="text-danger">{{$errors->first('name')}}</span>
                     @endif
                 </div>
                 <div class="col-sm-6 py-2 px-3">
                     <label for="email">Email</label>
                     <input class="form-control" type="email" name="email"  id="email"  value="{{old('email')}}">
-                    @if ($errors->has('email'))
+                    @if ($errors->first('email'))
                     <span class="text-danger">{{$errors->first('email')}}</span>
                     @endif
                 </div>
                 <div class="col-sm-6 py-2 px-3">
                     <label for="phone_number">Số điện thoại</label>
                     <input class="form-control" type="text" name="phone_number"  id="phone_number"  value="{{old('phone_number')}}">
-                    @if ($errors->has('phone_number'))
+                    @if ($errors->first('phone_number'))
                     <span class="text-danger">{{$errors->first('phone_number')}}</span>
                     @endif
                 </div>
                 <div class="col-sm-6 py-2 px-3">
                     <label for="address">Địa chỉ</label>
                     <input class="form-control" type="text" name="address"  id="address"  value="{{old('address')}}">
-                    @if ($errors->has('address'))
+                    @if ($errors->first('address'))
                     <span class="text-danger">{{$errors->first('address')}}</span>
                     @endif
                 </div>

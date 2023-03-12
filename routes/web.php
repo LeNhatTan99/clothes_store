@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 
 //Admin
-Route::group(['prefix' => '/admin','middleware' => ['auth', 'role:admin']], function() {
+// Route::group(['prefix' => '/admin','middleware' => ['auth', 'role:admin']], function() {
+    Route::group(['prefix' => '/admin'], function() {
     Route::get('/', function(){
         return view('backend.app');
     })->name('admin');

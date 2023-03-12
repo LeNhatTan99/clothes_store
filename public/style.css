@@ -143,6 +143,11 @@ a {
     margin-top: 36px;
 }
 
+/* message error */
+.error {
+    color: red;
+}
+
 /* navbar */
 
 .nav-link {
@@ -191,9 +196,6 @@ a {
     padding: 8px 24px;
     width: 300px;
 }
-
-
-
 
 /* sidebar */
 
@@ -1105,8 +1107,5 @@ width: 130px;
   padding-right: 30px;
       width: 100%;
 }
-
-
-
 
 /* endcarrt */

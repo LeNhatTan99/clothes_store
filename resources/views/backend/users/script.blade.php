@@ -69,7 +69,7 @@
 			"password": {
 				required: "Mật khẩu không được để trống",
 				minlength: "Mật khẩu ít nhất 6 ký tự",
-                regexPassord: "Mật khẩu phải có ít nhất 1 chữ hoa, chữ thường và 1 số"
+                regexPassword: "Mật khẩu phải có ít nhất 1 chữ hoa, chữ thường và 1 số"
 			},
 			"roleId": {
                 requiredRule: "Vui lòng chọn vai trò"

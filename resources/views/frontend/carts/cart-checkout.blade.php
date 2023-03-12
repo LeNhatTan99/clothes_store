@@ -128,12 +128,12 @@
                 </div>
             </div>
     </form>
-    <form action="{{route('vnpay-payment')}}" method="post">
+    {{-- <form action="{{route('vnpay-payment')}}" method="post">
         @csrf
         <button type="submit"  class="text-center " name='redirect' id="payment">
             Thanh toán bằng VN Pay
         </button>
-    </form>
+    </form> --}}
     </section>
     </div>
 @include('frontend.carts.script')

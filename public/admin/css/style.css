@@ -9,6 +9,10 @@ main {
     padding-left: 240px;
 }}
 
+.main-content {
+    padding-top: 12px;
+}
+
 i {
     margin: 4px;
 }
@@ -147,4 +151,8 @@ i {
 /* Message error */
 .error {
     color: #e70a0a;
+}
+/* breadcrumb */
+.breadcrumb .active {
+    color: #097981;
 }

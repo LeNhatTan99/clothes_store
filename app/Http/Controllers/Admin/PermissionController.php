@@ -18,16 +18,21 @@ class PermissionController extends Controller
         $this->authorizeResource(Permission::class);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $permissions = Permission::paginate(8);
-        return view('backend.permissions.index',['permissions'=>$permissions]);
+        $conditions = Permission::query();
+        $keyword = $request->get('keyword');
+        if (!empty($keyword)) {
+            $conditions->where('permissions.name', 'like', '%' . $keyword . '%');
+        }
+        $permissions = $conditions->paginate(8);
+        return view('admin.permissions.index',['permissions'=>$permissions, 'request'=>$request]);
     }
 
 
     public function create()
     {
-        return view('backend.permissions.create');
+        return view('admin.permissions.create');
     }
 
 
@@ -53,7 +58,7 @@ class PermissionController extends Controller
 
     public function edit(Permission $permission)
     {
-        return view('backend.permissions.edit',['permission'=>$permission]);
+        return view('admin.permissions.edit',['permission'=>$permission]);
     }
 
 

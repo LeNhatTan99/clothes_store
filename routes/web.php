@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 //Admin
  Route::group(['prefix' => '/admin','middleware' => ['auth', 'role:admin']], function() {
-    Route::get('/', function(){
-        return view('backend.app');
+    Route::get('/dashboard', function(){
+        return view('admin.index');
     })->name('admin');
     Route::resource('users','App\Http\Controllers\Admin\UserController');
     Route::resource('roles','App\Http\Controllers\Admin\RoleController');
@@ -44,8 +44,7 @@ Route::get('danh-sach-gio-hang', 'App\Http\Controllers\Web\CartController@showLi
 
 Route::get('gio-hang/thanh-toan', 'App\Http\Controllers\Web\CartController@cartCheckout')->name('cart-checkout');
 Route::post('gio-hang/dat-hang', 'App\Http\Controllers\Web\OrderController@createOrder')->name('order');
-Route::post('gio-hang/thanh-toan-vnpay', 'App\Http\Controllers\Web\OrderController@vnpayPayment')->name('vnpay-payment');
-Route::get('cart/order/checkout-success', 'App\Http\Controllers\Web\OrderController@checkoutSuccess')->name('checkout.success');
+Route::get('dat-hang-thanh-cong', 'App\Http\Controllers\Web\OrderController@checkoutSuccess')->name('checkout.success');
 
 
 //Auth

@@ -18,17 +18,22 @@ class ProductController extends Controller
         $this->authorizeResource(Product::class);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(8);
-        return view('backend.products.index',['products'=>$products]);
+        $conditions = Product::query();
+        $keyword = $request->get('keyword');
+        if (!empty($keyword)) {
+            $conditions->where('products.name', 'like', '%' . $keyword . '%');
+        }
+        $products = $conditions->paginate(8);
+        return view('admin.products.index', ['products' => $products, 'request' => $request]);
     }
 
 
     public function create()
     {
         $categories = Category::get();
-        return view('backend.products.create',['categories'=>$categories]);
+        return view('admin.products.create',['categories'=>$categories]);
     }
 
     protected function storeImage(Request $request) {
@@ -72,7 +77,7 @@ class ProductController extends Controller
             'product'=>$product,
             'categories'=>$categories,
         ];
-        return view('backend.products.show',$viewData);
+        return view('admin.products.show',$viewData);
     }
 
     public function edit(Product $product)
@@ -82,7 +87,7 @@ class ProductController extends Controller
             'product'=>$product,
             'categories'=>$categories,
         ];
-        return view('backend.products.edit',$viewData);
+        return view('admin.products.edit',$viewData);
     }
 
     public function update(ProductStoreRequest $request, Product $product)

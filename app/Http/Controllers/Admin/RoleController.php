@@ -21,16 +21,21 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Role::paginate(8);
-        return view('backend.roles.index',['roles'=>$roles]);
+        $conditions = Role::query();
+        $keyword = $request->get('keyword');
+        if (!empty($keyword)) {
+            $conditions->where('roles.name', 'like', '%' . $keyword . '%');
+        }
+        $roles = $conditions->paginate(8);
+        return view('admin.roles.index',['roles'=>$roles, 'request' => $request]);
     }
 
     public function create()
     {
         $permissions = Permission::get();
-        return view('backend.roles.create',['permissions'=>$permissions]);
+        return view('admin.roles.create',['permissions'=>$permissions]);
     }
 
 
@@ -62,7 +67,7 @@ class RoleController extends Controller
             'role'=>$role,
             'permissions'=>$permissions,
         ];
-        return view('backend.roles.edit',$viewData);
+        return view('admin.roles.edit',$viewData);
     }
 
 

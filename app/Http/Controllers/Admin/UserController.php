@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -15,19 +16,26 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        // $this->authorizeResource(User::class);
+        $this->authorizeResource(User::class);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(8);
-        return view('backend.users.index',['users'=>$users]);
+        $conditions = User::query();
+        $keyword = $request->get('keyword');
+        if (!empty($keyword)) {
+            $conditions->where('users.name', 'like', '%' . $keyword . '%')
+                        ->orWhere('users.phone_number', 'like', '%' . $keyword . '%')
+                        ->orWhere('users.email', 'like', '%' . $keyword . '%');
+        }
+        $users = $conditions->paginate(8);
+        return view('admin.users.index',['users'=>$users, 'request' => $request]);
     }
 
     public function create()
     {
         $roles = Role::get();
-        return view('backend.users.create',compact('roles'));
+        return view('admin.users.create',compact('roles'));
     }
 
 
@@ -59,7 +67,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return view('backend.users.show',['user'=>$user]);
+        return view('admin.users.show',['user'=>$user]);
     }
 
 
@@ -70,7 +78,7 @@ class UserController extends Controller
             'user'=>$user,
             'roles'=>$roles,
         ];
-        return view('backend.users.edit',$viewData);
+        return view('admin.users.edit',$viewData);
     }
 
 
@@ -83,7 +91,6 @@ class UserController extends Controller
             'phone_number'=>$request->phone_number,
             'address'=>$request->address,
             'email'=>$request->email,
-            'password'=>$password,
         ];
         DB::beginTransaction();
         try {

@@ -54,15 +54,15 @@
                     <div class=" payment-row" >
                         <h5 class="text-center pb-2">Chọn phương thức thanh toán</h5>
                         <div >
-                            <input type="radio" id="radio-order" name="payment" value="offline" onclick="validate()">
+                            <input type="radio" id="radio-order" name="payment" value="offline">
                             <label>
                               Thanh toán tiền mặt khi nhận hàng (COD)
                             </label>
                         </div>
                         <div>
-                            <input type="radio" id='radio-payment' name="payment" value="online" onclick="validate()">
+                            <input type="radio" id='radio-payment' name="payment" value="online">
                             <label>
-                                Thanh toán qua ví điện tử VN Pay
+                                Thanh toán qua ví điện tử MoMo
                             </label>
                         </div>
                         @if ($errors->first('payment'))
@@ -113,12 +113,6 @@
                         </div>
                         <div class="text-lg-right" >
                             <button type="submit" class="btn-checkout" id="order"> Đặt hàng</button>
-                           <form action="{{route('vnpay-payment')}}" method="post">
-                            @csrf
-                            <button type="submit"  class="text-center btn-checkout" name='redirect' id="payment">
-                                Thanh toán bằng VN Pay
-                            </button>
-                           </form>
                         </div>
                         </div>
                     <input type="hidden" name="total_payment" value="{{ Session::get('cart')->totalPayment}}">
@@ -128,12 +122,6 @@
                 </div>
             </div>
     </form>
-    {{-- <form action="{{route('vnpay-payment')}}" method="post">
-        @csrf
-        <button type="submit"  class="text-center " name='redirect' id="payment">
-            Thanh toán bằng VN Pay
-        </button>
-    </form> --}}
     </section>
     </div>
 @include('frontend.carts.script')

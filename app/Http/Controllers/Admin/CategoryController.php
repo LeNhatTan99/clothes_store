@@ -16,16 +16,21 @@ class CategoryController extends Controller
     {
         $this->authorizeResource(Category::class);
     }
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::paginate(8);
-        return view('backend.categories.index',['categories'=>$categories]);
+        $conditions = Category::query();
+        $keyword = $request->get('keyword');
+        if (!empty($keyword)) {
+            $conditions->where('categories.name', 'like', '%' . $keyword . '%');
+        }
+        $categories = $conditions->paginate(8);
+        return view('admin.categories.index',['categories'=>$categories, 'request'=>$request]);
     }
 
 
     public function create()
     {
-        return view('backend.categories.create');
+        return view('admin.categories.create');
     }
 
 
@@ -52,12 +57,12 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        return view('backend.categories.show',['category'=>$category]);
+        return view('admin.categories.show',['category'=>$category]);
     }
 
     public function edit(Category $category)
     {
-        return view('backend.categories.edit',['category'=>$category]);
+        return view('admin.categories.edit',['category'=>$category]);
     }
 
 

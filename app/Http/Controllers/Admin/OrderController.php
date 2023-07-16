@@ -12,9 +12,17 @@ use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
-    public function index() {
-        $orders = Order::paginate(8);
-        return view('backend.orders.index',['orders'=>$orders]);
+    public function index(Request $request) {
+        $conditions = Order::query();
+        $keyword = $request->get('keyword');
+        if (!empty($keyword)) {
+            $conditions->where('orders.name', 'like', '%' . $keyword . '%')
+                    ->orWhere('orders.phone_number', 'like', '%' . $keyword . '%')
+                    ->orWhere('orders.address', 'like', '%' . $keyword . '%')
+                    ->orWhere('orders.email', 'like', '%' . $keyword . '%');
+        }
+        $orders = $conditions->paginate(8);
+        return view('admin.orders.index',['orders'=>$orders, 'request'=>$request]);
     }
 
     public function show($id) {
@@ -28,7 +36,7 @@ class OrderController extends Controller
             'products'=>$products,
             'order'=>$order,
         ];
-        return view('backend.orders.show',$viewData);
+        return view('admin.orders.show',$viewData);
     }
 
     public function update(Request $request, Order $order)

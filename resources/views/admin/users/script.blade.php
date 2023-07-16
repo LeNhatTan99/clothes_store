@@ -7,20 +7,16 @@
         return true;
     });
     jQuery.validator.addMethod("regexPhone" , function(value, element) {
-        var regex = /^([0-9]{10,15})$/;
+		var regex = /^0([0-9]{9})$/;
         return regex.test(value);
     });
-    jQuery.validator.addMethod("requiredRadio", function(value, element){
-        var radios = $("input[name='payment']")
-        for (var i=0; i<radios.length; i++) {
-        if (radios[i].checked) {
-            return true;
-        }
-    }
-    })
+
+	jQuery.validator.addMethod('requiredRule', function(value) {
+		return value != '';
+	});
 
     $().ready(function() {
-	$("#form-checkout").validate({
+	$("#form").validate({
 		rules: {
             "name": {
 				required: true,
@@ -29,7 +25,7 @@
 			"email": {
 				required: true,
 				maxlength: 255,
-                email:true
+				email
 			},
             "phone_number": {
                 required: true,
@@ -37,13 +33,18 @@
                 maxlength: 15,
                 regexPhone: true,
             },
+			"password": {
+				required: true,
+				minlength: 6,
+				regexPassword: true
+			},
             "address": {
                 required: true,
                 maxlength: 150,
             },
-            "payment": {
-                requiredRadio: true
-            }
+			"roleId": {
+				requiredRule: true
+			}
 		},
 		messages: {
 			"name": {
@@ -65,13 +66,15 @@
 				required: "Địa chỉ không được để trống",
 				maxlength: "Địa chỉ tối đa 150 ký tự"
 			},
-            "payment": {
-                requiredRadio: "Vui lòng chọn phương thức thanh toán"
-            }
+			"password": {
+				required: "Mật khẩu không được để trống",
+				minlength: "Mật khẩu ít nhất 6 ký tự",
+                regexPassword: "Mật khẩu phải có ít nhất 1 chữ hoa, chữ thường và 1 số"
+			},
+			"roleId": {
+                requiredRule: "Vui lòng chọn vai trò"
+			},
 		},
-        errorPlacement: function (error, element) {
-            element.parent().after(error);
-        }
 	});
 	});
 </script>

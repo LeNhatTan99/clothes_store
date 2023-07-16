@@ -31,7 +31,7 @@ class UserStoreRequest extends FormRequest
         $rules = [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users,email,'. $user,
-            'phone_number' => 'required|min:10|max:11|regex:/^[0-9]*$/|unique:users,phone_number,' . $user,
+            'phone_number' => 'required|min:10|max:11|regex:/^0([0-9]{9})$/|unique:users,phone_number,' . $user,
             'address' => ['required','max:255'],
             'password' =>  $user ? 'nullable' : 'required' . '|min:6|max:150|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/u',
         ];

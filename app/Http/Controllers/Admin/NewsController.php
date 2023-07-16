@@ -17,16 +17,21 @@ class NewsController extends Controller
         $this->authorizeResource(News::class);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $news = News::paginate(8);
-        return view('backend.news.index',['news'=>$news]);
+        $conditions = News::query();
+        $keyword = $request->get('keyword');
+        if (!empty($keyword)) {
+            $conditions->where('news.title', 'like', '%' . $keyword . '%');
+        }
+        $news = $conditions->paginate(8);
+        return view('admin.news.index',['news'=>$news, 'request'=>$request]);
     }
 
 
     public function create()
     {
-        return view('backend.news.create');
+        return view('admin.news.create');
     }
 
     protected function storeImage(Request $request) {
@@ -62,12 +67,12 @@ class NewsController extends Controller
 
     public function show(News $news)
     {
-        return view('backend.news.show',['news'=>$news]);
+        return view('admin.news.show',['news'=>$news]);
     }
 
     public function edit(News $news)
     {
-        return view('backend.news.edit',['news'=>$news]);
+        return view('admin.news.edit',['news'=>$news]);
     }
 
 
